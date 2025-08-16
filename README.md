@@ -1,2 +1,17 @@
 # Software_anti-spam_per_universita
 This repository is the eigth project of my master in Data Science
+
+Questo progetto si colloca a conclusione di un modulo veramente interessante, in cui sono state approfondite le tematiche relative al natural language processing. Le tecniche coperte hanno variato dal data cleaning (differenza tra lemmatizzazione e stemmatizzazione, rimozione stopwords, ecc..) alla codifica del testo in particolare è stato presentato Bag of Words con anche i suoi limiti. Sono stati svolti dei laboratori pratici sulla: Text Classification, Language Identification, Sentiment Analysis, Topic Modelling, Part of Speech e Named Entity Recognition. Il corso è terminato con l'introduzione del word embedding e del metodo Word2Vec, essenziale per cogliere le informazioni semantiche dal testo.
+
+Il progetto proposto richiedeva di analizzare e creare un classificatore per identificare le email di SPAM. Altri sotto obiettivi erano individuare i topic principali nelle mail classificate come SPAM, calcolare la distanza semantica tra questi topic ed estrarre dalle mail NON SPAM le informazioni sulle organizzazioni menzionate.
+
+Per svolgere questo progetto ho sviluppato i seguenti punti:
+- Utils e preparazione dell'ambiente: in questa sezione ho caricato le librerie necessarie (sottolineo l'utilizzo di re, string, gensim, spacy e nltk per svolgere le operazioni di NLP) e definito alcune funzioni: clean_text() - rimozione URL, email, lettere ripetute, punteggiatura, lemmatizzazione, stopwords, rimozione numeri, caratteri non alfabetici - get_document_vector() - per trasformare il documento in un vettore usando il modello **GloVe wiki gigaword 300** e restituisce il vettore con le medie dei vettori delle parole del documento documento. Ho anche definito alcune classi e funzioni per i classificatori: ho definito una classe genitore BaseClassifier che ho poi ereditato per implemetare una regressione logistica e una multi layer perceptron.
+- Analisi esplorativa dei dati (EDA): il nostro dataset è sufficientemente bilanciato con circa il 30% di mail SPAM. Ho aggiunto una colonna con la lunghezza del testo e ho costruito istogramma e boxplot per osservare la variabilità di questa feature aggiuntiva, queste distribuzioni sono risultati indipendenti dal tipo di mail.
+- Pulizia del testo, embedding del testo, splitting: per pulizia ed embedding ho applicato le funzioni precedentemente definite.
+- Classificatore: Costruzione Modelli: per quanto riguardo la costruzione dei modelli ho definito una regressione logistica per avere una baseline e poterne confrontare le metriche con un modello più complesso come il MLP. Dopo aver svolto il fine tuning di entrambi i modelli quello che si è osservato è che entrambi i modelli avevano ottime performance ma il MLP soffre meno di overfitting.
+- Individuazione topic principali email SPAM: per identificare i topic ho utilizzato il modello gensim.models.LdaMuticore. 
+- Distanza semantica tra i topic: dopo aver identificato 5 argomenti, ho creato un vettore delle parole presente nel topic moltiplicata per il loro peso, questo serve per determinare un vettore rappresentativo. La distanza semantica è stata calcolata con la cosine_similarity() e l'ho rappresentata attraverso dei radar plot.
+- Estrazione Organizzazione dalle mail NON SPAM: il trovare le organizzazioni è un classico task di NLP, ho usato l'attributo ent_type_ per verificare quali token sono stati etichettati come organizzazioni.
+
+Linguaggio di programmazione: Python
